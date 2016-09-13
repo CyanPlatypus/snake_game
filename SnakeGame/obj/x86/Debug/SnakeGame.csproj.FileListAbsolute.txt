@@ -1,0 +1,11 @@
+D:\Julie\for_C#\SnakeGame\SnakeGame\obj\x86\Debug\MainWindow.baml
+D:\Julie\for_C#\SnakeGame\SnakeGame\obj\x86\Debug\MainWindow.g.cs
+D:\Julie\for_C#\SnakeGame\SnakeGame\obj\x86\Debug\App.g.cs
+D:\Julie\for_C#\SnakeGame\SnakeGame\obj\x86\Debug\SnakeGame_MarkupCompile.cache
+D:\Julie\for_C#\SnakeGame\SnakeGame\obj\x86\Debug\SnakeGame.g.resources
+D:\Julie\for_C#\SnakeGame\SnakeGame\obj\x86\Debug\SnakeGame.Properties.Resources.resources
+D:\Julie\for_C#\SnakeGame\SnakeGame\obj\x86\Debug\SnakeGame.csproj.GenerateResource.Cache
+D:\Julie\for_C#\SnakeGame\SnakeGame\bin\Debug\SnakeGame.exe
+D:\Julie\for_C#\SnakeGame\SnakeGame\bin\Debug\SnakeGame.pdb
+D:\Julie\for_C#\SnakeGame\SnakeGame\obj\x86\Debug\SnakeGame.exe
+D:\Julie\for_C#\SnakeGame\SnakeGame\obj\x86\Debug\SnakeGame.pdb

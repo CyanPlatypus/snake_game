@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SnakeGame
 {
-    public enum CellType { empty, solid, food };
+    public enum CellType { empty, solid };
 
     class Cell
     {

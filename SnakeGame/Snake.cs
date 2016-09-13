@@ -13,6 +13,7 @@ namespace SnakeGame
 
         public Snake(Coordinate2 head) 
         {
+            positions = new List<Coordinate2>();
             positions.Add(head);
             positions.Add(new Coordinate2(head.X-1, head.Y));
         }
