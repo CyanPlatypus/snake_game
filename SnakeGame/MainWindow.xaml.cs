@@ -21,7 +21,9 @@ namespace SnakeGame
     {
         Game myGame;
 
-        SolidColorBrush mainCellColor = Brushes.Gainsboro;
+        SolidColorBrush mainCellColor = Brushes.White;
+
+        Random rnd = new Random();
 
         public MainWindow()
         {
@@ -35,9 +37,18 @@ namespace SnakeGame
             PlaceRowsAndColumns(boardGrid);
             PlaceRectangles(boardGrid);
             ColorBoard(boardGrid, myGame.Board.BoardArray);
-            DrawSnake(boardGrid);
+            DrawSnakesHeadAndTail(boardGrid);
+            DrawFood(boardGrid);
+            ShowScore();
+        }
 
-            scoreBox.Text = "Score:"+Environment.NewLine+Convert.ToString(myGame.Score);
+        void ReloadGame() 
+        {
+            myGame = new Game();
+            ColorBoard(boardGrid, myGame.Board.BoardArray);
+            DrawSnakesHeadAndTail(boardGrid);
+            DrawFood(boardGrid);
+            ShowScore();
         }
 
         void PlaceRowsAndColumns(Grid currentGrid)
@@ -62,7 +73,6 @@ namespace SnakeGame
             {
                 for (int y = 0; y < myGame.Board.BoardWidht; y++)
                 {
-                    //Button btn = new Button();
                     Rectangle rect = new Rectangle();
                     //this.SizeToContent = SizeToContent.WidthAndHeight; 
 
@@ -102,9 +112,53 @@ namespace SnakeGame
             }
         }
 
-        void DrawSnake(Grid grid) 
+        void DrawSnakesHeadAndTail(Grid grid) 
         {
             //grid[myGame.Snake.HeadCoordinate.X,myGame.Snake.HeadCoordinate.Y]
+            ((Rectangle)grid.Children[myGame.Snake.HeadCoordinate.X * myGame.Board.BoardWidht + myGame.Snake.HeadCoordinate.Y]).Fill = Brushes.Coral;
+            ((Rectangle)grid.Children[myGame.Snake.TailCoordinate.X * myGame.Board.BoardWidht + myGame.Snake.TailCoordinate.Y]).Fill = Brushes.Indigo;
+        }
+
+        void DrawFood(Grid grid) 
+        {
+            ((Rectangle)grid.Children[myGame.FoodCoordinate.X * myGame.Board.BoardWidht + myGame.FoodCoordinate.Y]).Fill = Brushes.LightSeaGreen; //new SolidColorBrush(Color.FromRgb((byte)rnd.Next(255), (byte)rnd.Next(255), (byte)rnd.Next(255))); 
+        }
+
+        void ShowScore() 
+        {
+            scoreBox.Text = "Score:" + Environment.NewLine + Convert.ToString(myGame.Score);
+        }
+
+        void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            if ((e.Key == Key.Left) || (e.Key == Key.A)) myGame.Snake.Direction = Direction.left;
+            if ((e.Key == Key.Right) || (e.Key == Key.D)) myGame.Snake.Direction = Direction.right;
+            if ((e.Key == Key.Up) || (e.Key == Key.W)) myGame.Snake.Direction = Direction.up;
+            if ((e.Key == Key.Down) || (e.Key == Key.S)) myGame.Snake.Direction = Direction.down;
+
+            Move(boardGrid);
+        }
+
+        void Move(Grid grid)
+        {
+            ((Rectangle)grid.Children[myGame.Snake.HeadCoordinate.X * myGame.Board.BoardWidht + myGame.Snake.HeadCoordinate.Y]).Fill = Brushes.Indigo;
+            ((Rectangle)grid.Children[myGame.Snake.TailCoordinate.X * myGame.Board.BoardWidht + myGame.Snake.TailCoordinate.Y]).Fill = mainCellColor;
+
+            bool fed = false;
+            bool safe = true;
+            myGame.MoveSnake(ref fed, ref safe);
+
+            DrawSnakesHeadAndTail(grid);
+
+            if (!safe)
+            {
+                MessageBox.Show("Game over, dude.", Convert.ToString(myGame.Score)); ReloadGame(); return;
+            }
+            if (fed)
+            {
+                DrawFood(grid);
+                ShowScore();
+            }
         }
     }
 }

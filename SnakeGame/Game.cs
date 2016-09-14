@@ -16,16 +16,16 @@ namespace SnakeGame
     {
         static Random rnd = new Random();
 
-        Coordinate2 foodCoorfinate;
+        CoordinateXY foodCoorfinate;
         Snake snake;
         Board board;
 
         int score;
 
-        public Game(int map = 1, int width = 50, int height = 50) 
+        public Game(int map = 1, int width = 30, int height = 30) 
         {
             board = new Board(map, width , height);
-            snake = new Snake(new Coordinate2(width/3, height/3));
+            snake = new Snake(new CoordinateXY(width/3, height/3));
             score = 0;
 
             PlaceFood();
@@ -33,8 +33,7 @@ namespace SnakeGame
 
         public int Score
         {
-            get;
-            set;
+            get { return score;}
         }
 
         public Snake Snake
@@ -47,34 +46,10 @@ namespace SnakeGame
             get { return board; }
         }
 
-        //void PlaceWalls(int map, int width, int height) 
-        //{
-        //    SetAllCellsEmpty();
-        //    switch (map) 
-        //    {
-        //        case 1: 
-        //            {
-        //                PlaceOneWall(0, width/2, height-1, false);
-        //                break; 
-        //            }
-        //    }
-        //}
-
-        //void PlaceOneWall(int row, int col, int howMany, bool isHorisontal) 
-        //{
-        //    if (!isHorisontal)
-        //    {
-        //        Transpose(board);
-        //    }
-        //    for (int i = 0; i <= howMany; i++) 
-        //    {
-        //        board[col, i].Type = CellType.solid;
-        //    }
-        //    if (!isHorisontal)
-        //    {
-        //        Transpose(board);
-        //    }
-        //}
+        public CoordinateXY FoodCoordinate 
+        {
+            get {return foodCoorfinate;}
+        }
 
         void PlaceFood()
         {
@@ -85,51 +60,28 @@ namespace SnakeGame
 
                 if ((board.BoardArray[x,y].Type == CellType.empty) && (snake.FindCoordNumber(x,y) == -1))
                 {
-                    foodCoorfinate = new Coordinate2(x, y);
+                    foodCoorfinate = new CoordinateXY(x, y);
                     break;
                 }
             }
         }
 
-        public bool MoveSnake() 
+        public void MoveSnake(ref bool fed, ref bool safe) 
         {
-            bool fed = false;
-            bool safe = true;
+            //bool fed = false;
+            //bool safe = true;
             snake.Move(board.BoardHeight, board.BoardWidht, foodCoorfinate, ref fed, ref safe);
             if (fed)
             {
                 score++;
                 PlaceFood();
             }
-            if ((board.BoardArray[snake.HeadCoordinate.X, snake.HeadCoordinate.Y].Type == CellType.solid)
-                || !safe)
-                return false;
-            else
-                return true;
+            if (board.BoardArray[snake.HeadCoordinate.X, snake.HeadCoordinate.Y].Type == CellType.solid)
+                 safe = false;
+            //else
+            //    return true;
         }
 
-        //void SetAllCellsEmpty()
-        //{
-        //    for (int i = 0; i < boardHeight; i++ )
-        //    {
-        //        for (int j = 0; j < boardWidth; j++)
-        //        {
-        //            board[i,j] = new Cell(CellType.empty);
-        //        }
-        //    }
-        //}
 
-        //static void Transpose<T>(T[,] arr) 
-        //{
-        //    for (int i = 0; i < arr.GetLength(0); i++) 
-        //    {
-        //        for (int j = i; j < arr.GetLength(1); j++)
-        //        {
-        //            T tmp = arr[i, j];
-        //            arr[i, j] = arr[j, i];
-        //            arr[j, i] = tmp;
-        //        }
-        //    }
-        //}
     }
 }

@@ -5,22 +5,31 @@ using System.Text;
 
 namespace SnakeGame
 {
-    class Coordinate2
+    class CoordinateXY
     {
         int x;
         int y;
 
-        public Coordinate2(int x, int y) 
+        public CoordinateXY(int x, int y) 
         {
             this.x = x;
             this.y = y;
         }
-        public int X { get; set; }
-        public int Y { get; set; }
+        public int X { get { return x; } set { x = value;} }
+        public int Y { get { return y; } set { y = value; } }
 
-        public static Coordinate2 operator +(Coordinate2 fst, Coordinate2 scnd) 
+        public static CoordinateXY operator +(CoordinateXY fst, CoordinateXY scnd) 
         {
-            return new Coordinate2(fst.X + scnd.X, fst.Y + scnd.Y);
+            return new CoordinateXY(fst.X + scnd.X, fst.Y + scnd.Y);
+        }
+
+        public static bool operator ==(CoordinateXY fst, CoordinateXY scnd)
+        {
+            return ((fst.X == scnd.X) && (fst.Y == scnd.Y));
+        }
+        public static bool operator !=(CoordinateXY fst, CoordinateXY scnd)
+        {
+            return !((fst.X == scnd.X) && (fst.Y == scnd.Y));
         }
     }
 }

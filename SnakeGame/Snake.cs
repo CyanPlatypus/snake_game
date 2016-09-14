@@ -5,20 +5,21 @@ using System.Text;
 
 namespace SnakeGame
 {
-    public enum Direction { up, right, down, left };
+    public enum Direction { up, right, down, left, no };
     class Snake
     {
-        List<Coordinate2> positions;
+        List<CoordinateXY> positions;
         Direction direction;
 
-        public Snake(Coordinate2 head) 
+        public Snake(CoordinateXY head) 
         {
-            positions = new List<Coordinate2>();
+            positions = new List<CoordinateXY>();
             positions.Add(head);
-            positions.Add(new Coordinate2(head.X-1, head.Y));
+            positions.Add(new CoordinateXY(head.X, head.Y-1));
+            direction = Direction.no;
         }
 
-        public Coordinate2 HeadCoordinate
+        public CoordinateXY HeadCoordinate
         {
             get
             {
@@ -30,7 +31,7 @@ namespace SnakeGame
             }
         }
 
-        public Coordinate2 TailCoordinate
+        public CoordinateXY TailCoordinate
         {
             get
             {
@@ -52,33 +53,34 @@ namespace SnakeGame
                     ||
                     ((direction == Direction.right)&&(value != Direction.left ))
                     ||
-                    ((direction == Direction.left) && (value != Direction.right)))
+                    ((direction == Direction.left) && (value != Direction.right))
+                    || (direction == Direction.no))
                 direction = value;
             }
         }
 
-        public void Move(int height, int width, Coordinate2 foodCoordinate, ref bool fed, ref bool safe) 
+        public void Move(int height, int width, CoordinateXY foodCoordinate, ref bool fed, ref bool safe) 
         {
             switch (direction) 
             {
                 case Direction.up: 
                     {
-                        positions.Insert(0, new Coordinate2((HeadCoordinate.X - 1)% height, HeadCoordinate.Y));
+                        positions.Insert(0, new CoordinateXY((HeadCoordinate.X - 1 + height) % height, HeadCoordinate.Y));
                         break; 
                     }
                 case Direction.down:
                     {
-                        positions.Insert(0, new Coordinate2((HeadCoordinate.X + 1) % height, HeadCoordinate.Y));
+                        positions.Insert(0, new CoordinateXY((HeadCoordinate.X + 1 + height) % height, HeadCoordinate.Y));
                         break;
                     }
                 case Direction.right:
                     {
-                        positions.Insert(0, new Coordinate2(HeadCoordinate.X, (HeadCoordinate.X + 1) % width));
+                        positions.Insert(0, new CoordinateXY(HeadCoordinate.X, (HeadCoordinate.Y + 1 + width) % width));
                         break;
                     }
                 case Direction.left:
                     {
-                        positions.Insert(0, new Coordinate2(HeadCoordinate.X, (HeadCoordinate.X - 1) % width));
+                        positions.Insert(0, new CoordinateXY(HeadCoordinate.X, (HeadCoordinate.Y - 1 + width) % width));
                         break;
                     }
             }
@@ -109,14 +111,15 @@ namespace SnakeGame
             return false;
         }
 
-        public int FindCoordNumber(Coordinate2 position) 
+        public int FindCoordNumber(CoordinateXY position) 
         {
             return positions.IndexOf(position);
         }
 
         public int FindCoordNumber(int x, int y) 
         {
-            return positions.IndexOf(new Coordinate2(x,y));
+            //return positions.IndexOf(new CoordinateXY(x,y));
+            return positions.FindIndex(r => ((r.X == x) && (r.Y == y)));
         }
     }
 }
