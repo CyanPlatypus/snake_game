@@ -11,17 +11,16 @@ namespace SnakeGame
         int boardHeight;
         Cell[,] board;
 
-        public Board(int map = 1, int width = 50, int height = 50) 
+        public Board(int map , int width , int height ) 
         {
             boardHeight = height;
             boardWidth = width;
             board = new Cell[boardHeight, boardWidth];
 
             PlaceWalls(map, width, height);
-            //PlaceFood();
         }
 
-        public int BoardWidht { get { return boardWidth; } }
+        public int BoardWidth { get { return boardWidth; } }
 
         public int BoardHeight { get { return boardHeight; } }
 
@@ -45,20 +44,19 @@ namespace SnakeGame
 
         void PlaceOneWall(int row, int col, int howMany, bool isHorisontal)
         {
-            if (!isHorisontal)
+            if (isHorisontal)
             {
-                int tmp = col;
-                col = row;
-                row = tmp;
-                Transpose(board);
+                for (int i = 0; i < howMany; i++)
+                {
+                    board[row, i + col].Type = CellType.solid;
+                }
             }
-            for (int i = 0; i < howMany; i++)
+            else
             {
-                board[row, i + col].Type = CellType.solid;
-            }
-            if (!isHorisontal)
-            {
-                Transpose(board);
+                for (int i = 0; i < howMany; i++)
+                {
+                    board[i + row, col].Type = CellType.solid;
+                }
             }
         }
 
@@ -69,19 +67,6 @@ namespace SnakeGame
                 for (int j = 0; j < boardWidth; j++)
                 {
                     board[i, j] = new Cell(CellType.empty);
-                }
-            }
-        }
-
-        static void Transpose<T>(T[,] arr)
-        {
-            for (int i = 0; i < arr.GetLength(0); i++)
-            {
-                for (int j = i; j < arr.GetLength(1); j++)
-                {
-                    T tmp = arr[i, j];
-                    arr[i, j] = arr[j, i];
-                    arr[j, i] = tmp;
                 }
             }
         }

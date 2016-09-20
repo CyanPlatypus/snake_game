@@ -6,8 +6,6 @@ using System.Text;
 namespace SnakeGame
 {
     /*TODO:
-     * -PlaceSnake
-     * -Move (score) snake, delete food, bumping into obstacles and snake, finish
      * -put comments
      */
     
@@ -22,7 +20,7 @@ namespace SnakeGame
 
         int score;
 
-        public Game(int map = 1, int width = 30, int height = 30) 
+        public Game(int map = 1, int width = 40, int height = 40) 
         {
             board = new Board(map, width , height);
             snake = new Snake(new CoordinateXY(width/3, height/3));
@@ -56,7 +54,7 @@ namespace SnakeGame
             while (true)
             {
                 int x = rnd.Next(board.BoardHeight);
-                int y = rnd.Next(board.BoardWidht);
+                int y = rnd.Next(board.BoardWidth);
 
                 if ((board.BoardArray[x,y].Type == CellType.empty) && (snake.FindCoordNumber(x,y) == -1))
                 {
@@ -68,9 +66,7 @@ namespace SnakeGame
 
         public void MoveSnake(ref bool fed, ref bool safe) 
         {
-            //bool fed = false;
-            //bool safe = true;
-            snake.Move(board.BoardHeight, board.BoardWidht, foodCoorfinate, ref fed, ref safe);
+            snake.Move(board.BoardHeight, board.BoardWidth, foodCoorfinate, ref fed, ref safe);
             if (fed)
             {
                 score++;
@@ -78,8 +74,6 @@ namespace SnakeGame
             }
             if (board.BoardArray[snake.HeadCoordinate.X, snake.HeadCoordinate.Y].Type == CellType.solid)
                  safe = false;
-            //else
-            //    return true;
         }
 
 

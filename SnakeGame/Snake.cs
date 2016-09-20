@@ -10,6 +10,7 @@ namespace SnakeGame
     {
         List<CoordinateXY> positions;
         Direction direction;
+        Direction futureDirection;
 
         public Snake(CoordinateXY head) 
         {
@@ -17,6 +18,8 @@ namespace SnakeGame
             positions.Add(head);
             positions.Add(new CoordinateXY(head.X, head.Y-1));
             direction = Direction.no;
+
+            futureDirection = Direction.no;
         }
 
         public CoordinateXY HeadCoordinate
@@ -55,12 +58,14 @@ namespace SnakeGame
                     ||
                     ((direction == Direction.left) && (value != Direction.right))
                     || (direction == Direction.no))
-                direction = value;
+                futureDirection = value;
             }
         }
 
         public void Move(int height, int width, CoordinateXY foodCoordinate, ref bool fed, ref bool safe) 
         {
+            direction = futureDirection;
+
             switch (direction) 
             {
                 case Direction.up: 
@@ -83,6 +88,7 @@ namespace SnakeGame
                         positions.Insert(0, new CoordinateXY(HeadCoordinate.X, (HeadCoordinate.Y - 1 + width) % width));
                         break;
                     }
+                default: { return; }
             }
 
             positions.RemoveAt(positions.Count - 1);
@@ -118,7 +124,6 @@ namespace SnakeGame
 
         public int FindCoordNumber(int x, int y) 
         {
-            //return positions.IndexOf(new CoordinateXY(x,y));
             return positions.FindIndex(r => ((r.X == x) && (r.Y == y)));
         }
     }

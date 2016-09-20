@@ -55,3 +55,14 @@ D:\VSprojects\SnakeGame\SnakeGame\obj\x86\Debug\SnakeGame.g.resources
 D:\VSprojects\SnakeGame\SnakeGame\obj\x86\Debug\SnakeGame.Properties.Resources.resources
 D:\VSprojects\SnakeGame\SnakeGame\obj\x86\Debug\GenerateResource.read.1.tlog
 D:\VSprojects\SnakeGame\SnakeGame\obj\x86\Debug\GenerateResource.write.1.tlog
+D:\Dropbox\panda\SnakeGame\SnakeGame\obj\x86\Debug\SnakeGame.exe
+D:\Dropbox\panda\SnakeGame\SnakeGame\obj\x86\Debug\SnakeGame.pdb
+D:\Dropbox\panda\SnakeGame\SnakeGame\bin\Debug\SnakeGame.exe
+D:\Dropbox\panda\SnakeGame\SnakeGame\bin\Debug\SnakeGame.pdb
+D:\Dropbox\panda\SnakeGame\SnakeGame\obj\x86\Debug\MainWindow.baml
+D:\Dropbox\panda\SnakeGame\SnakeGame\obj\x86\Debug\MainWindow.g.cs
+D:\Dropbox\panda\SnakeGame\SnakeGame\obj\x86\Debug\App.g.cs
+D:\Dropbox\panda\SnakeGame\SnakeGame\obj\x86\Debug\SnakeGame_MarkupCompile.cache
+D:\Dropbox\panda\SnakeGame\SnakeGame\obj\x86\Debug\SnakeGame.g.resources
+D:\Dropbox\panda\SnakeGame\SnakeGame\obj\x86\Debug\SnakeGame.Properties.Resources.resources
+D:\Dropbox\panda\SnakeGame\SnakeGame\obj\x86\Debug\SnakeGame.csproj.GenerateResource.Cache
